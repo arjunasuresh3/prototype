@@ -1,0 +1,10 @@
+{
+    "name": "contentSwapper",
+    "builds": {
+        "contentSwapper": {
+            "jsfiles": [
+                "cs.js"
+            ]
+        }
+    }
+}

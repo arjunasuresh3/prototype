@@ -1,0 +1,5 @@
+{
+"zeView": {
+                "requires" : [ "view", "contentSwapper", "calendar", "base-build", "datatype-date", "event-outside", "event-focus" ]
+          } 
+}

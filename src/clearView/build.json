@@ -1,0 +1,55 @@
+{
+    "name": "clearView",
+    "builds": {
+	"model-list-zope": {
+            "jsfiles": [
+                "model-list-zope.js"
+            ]
+        },
+	"zecalendar": {
+            "jsfiles": [
+                "zecalendar.js"
+            ]
+        },
+        "clearView": {
+            "jsfiles": [
+                "clearView.js"
+            ]
+        },
+	"anotherNewView": {
+            "jsfiles": [
+                "anotherNewView.js"
+            ]
+        },
+	"newView": {
+            "jsfiles": [
+                "newView.js"
+            ]
+        },
+	"mypanelView": {
+            "jsfiles": [
+                "mypanelView.js"
+            ]
+        },
+	"modalView": {
+            "jsfiles": [
+                "modalView.js"
+            ]
+        },
+	"memsearchView": {
+            "jsfiles": [
+                "mem_search.js"
+            ]
+        },
+	"modelsyncZope": {
+            "jsfiles": [
+                "ModelSyncZope.js"
+            ]
+        },
+	"multipleTabs": {
+            "jsfiles": [
+                "multipleTabs.js"
+            ]
+        }
+    }
+}

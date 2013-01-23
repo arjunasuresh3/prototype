@@ -1,0 +1,5 @@
+{
+"zecalendar": {
+                "requires" : ["calendar", "base-build", "datatype-date", "event-outside", "event-focus"]
+              } 
+}

@@ -1,0 +1,103 @@
+ul.tabs
+{
+    padding: 7px 0;
+    font-size: 0;
+    margin:0;
+    list-style-type: none;
+    text-align: left; /*set to left, center, or right to align the tabs as desired*/
+}
+        
+ul.tabs li
+{
+    display: inline;
+    margin: 0;
+    margin-right:3px; /*distance between tabs*/
+}
+        
+ul.tabs li a
+{
+    font: normal 12px Verdana;
+    text-decoration: none;
+    position: relative;
+    z-index: 1;
+    padding: 7px 16px;
+    border: 1px solid #CCC;
+    border-bottom-color:#B7B7B7;
+    color: #000;
+    background: #F0F0F0 url(tabbg.gif) 0 0 repeat-x;
+    border-radius: 2px 2px 0 0;
+    outline:none;
+}
+        
+ul.tabs li a:visited
+{
+    color: #000;
+}
+        
+ul.tabs li a:hover
+{
+    border: 1px solid #B7B7B7;
+    background:#F0F0F0 url(tabbg.gif) 0 -36px repeat-x;
+}
+        
+ul.tabs li.selected a
+{
+    /*selected tab style */
+    position: relative;
+    top: 0px;
+    font-weight:bold;
+    background: white;
+    border: 1px solid #B7B7B7;
+    border-bottom-color: white;
+}
+        
+        
+ul.tabs li.selected a:hover
+{
+    /*selected tab style */
+    text-decoration: none;
+}
+        
+div.tabcontent
+{
+    display: block;
+}
+
+div.tabcontents
+{
+    border: 1px solid #B7B7B7; padding: 30px;
+    background-color:#FFF;
+    border-radius: 0 2px 2px 2px;
+}
+
+/* Overlay Look/Feel */
+.yui3-overlay-content {
+    background-color: #ECEFFB;  
+    border: 1px solid #9EA8C6;
+    border-radius: 3px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.25);
+}
+
+.yui3-overlay-content .yui3-widget-hd {
+    background-color: #B6BFDA;  
+    color: #30418C;
+    font-size: 120%;
+    font-weight: bold;
+    padding: 0.2em 0.5em 0.3em;
+    border-radius: 2px 2px 0 0;
+}
+
+.yui3-overlay-content .yui3-widget-bd {
+    padding: 0.4em 0.6em 0.5em;
+}
+
+.yui3-overlay-content .yui3-widget-ft {
+    background-color:#DFE3F5;
+    padding: 0.4em 0.6em 0.5em;
+    border-radius: 0 0 2px 2px;
+}
+
+.yui3-overlay-content .yui3-widget-bd .yui3-ovr-z-i{
+    line-height: 3.5em;
+    font-size:190%;
+}

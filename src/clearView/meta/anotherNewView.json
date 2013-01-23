@@ -1,0 +1,5 @@
+{
+"anotherNewView": {
+                "requires" : ["zeView", "datatable", "contentSwapper", "autocomplete", "autocomplete-highlighters"]
+          } 
+}

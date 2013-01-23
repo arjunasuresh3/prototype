@@ -1,0 +1,5 @@
+{
+"modalView": {
+                "requires" : ["zeView", "datatable", "contentSwapper", "autocomplete", "autocomplete-highlighters", "panel", "resize-plugin" , "dd-plugin"]
+          } 
+}

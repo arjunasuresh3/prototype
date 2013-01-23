@@ -1,0 +1,5 @@
+{
+"clearView": {
+                "requires" : ["zeView", "datatable", "contentSwapper", "autocomplete", "autocomplete-highlighters"]
+          } 
+}

@@ -1,0 +1,8 @@
+{
+    "name": "zeView",
+    "builds": {
+        "zeView": {
+            "jsfiles": ["zeView.js"]
+        }
+}
+}

@@ -1,0 +1,5 @@
+{
+"memsearchView": {
+                "requires" : ["zeView", "datatable", "contentSwapper", "autocomplete", "autocomplete-highlighters", "io-upload-iframe"]
+          } 
+}

@@ -1,0 +1,5 @@
+{
+"contentSwapper": {
+                "requires" : ["view", "calendar", "base-build", "datatype-date", "event-outside", "event-focus"]
+          } 
+}

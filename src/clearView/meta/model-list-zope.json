@@ -1,0 +1,5 @@
+{
+"model-list-zope": {
+                "requires" : ["array-extras", "array-invoke", "arraylist", "base-build", "escape", "json-parse", "model"]
+          } 
+}
