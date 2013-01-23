@@ -53,22 +53,22 @@ YUI().use('zeView', 'contentSwapper', function(Y) {
     Y.all(".tabsa").on("click", function(e) {
         console.log(e);
         e.preventDefault();
-        if (e.currentTarget._node.id === 'tab1') {
+        if (e.currentTarget.get('id') === 'tab1') {
             Y.use("clearView",function(){
                       myView.setSwapView(new Y.ClearView().render(),1);       
                   });
         }
-        else if (e.currentTarget._node.id === 'tab2') {
+        else if (e.currentTarget.get('id') === 'tab2') {
             Y.use("anotherNewView",function() {
                       myView.setSwapView(new Y.AnotherNewView().render(),1);       
                   });
         }
-        else if (e.currentTarget._node.id === 'tab3') {
+        else if (e.currentTarget.get('id') === 'tab3') {
             Y.use("newView",function() {
                       myView.setSwapView(new Y.NewView().render(),1);       
                   });
         }
-        else if (e.currentTarget._node.id === 'tab4') {
+        else if (e.currentTarget.get('id') === 'tab4') {
             Y.use("modalView",function() {
                       var oldModal = new Y.ModalView().render();
                       // if(oldModal === undefined) {
@@ -80,7 +80,7 @@ YUI().use('zeView', 'contentSwapper', function(Y) {
                       // }
                   });
         }
-        else if (e.currentTarget._node.id === 'tab5') {
+        else if (e.currentTarget.get('id') === 'tab5') {
             Y.use("mypanelView", function() {
                       var pan = new Y.MyPanelView().render();
                       // var oldPanel = myView.getSwapView(2);
@@ -93,7 +93,7 @@ YUI().use('zeView', 'contentSwapper', function(Y) {
                       // }
                   });
         }
-        else if (e.currentTarget._node.id === 'tab6') {
+        else if (e.currentTarget.get('id') === 'tab6') {
             Y.use("memsearchView" ,function() {
                       myView.setSwapView(new Y.MemSearchView().render(),1);
                   });

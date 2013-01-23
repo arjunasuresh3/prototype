@@ -30,9 +30,6 @@ var tmplpage = '<fieldset>\
                           <option value="2">SSN</option>\
                         </select>\
                       </div>\
-                      <div class="yui3-u-1-4">\
-                        <input id="fl-input" name="filename" type="file">\
-                      </div>\
                     </div>\
                     <div style="clear:both"></div>\
                     <div align="center">\
