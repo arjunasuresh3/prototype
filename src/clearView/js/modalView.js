@@ -1,5 +1,5 @@
 var ModalView = Y.Base.create('modalView',Y.ZeView, [], {
-                                  initializer:  function (container) {
+                                  initializer:  function () {
                                       this.regmodals = [];
                                   },
                                   template: '<div class="acFields">'
@@ -10,10 +10,9 @@ var ModalView = Y.Base.create('modalView',Y.ZeView, [], {
                                       + '</div>',
                                   events: {
                                   },
-                                  _render:  function (container) {
-                                      container.setHTML(this.template);
-                                      var _this = this,
-                                      acFields = container.all('input.acFieldsPanel');
+                                  _refresh:  function () {
+                                      this._contentBox.setHTML(this.template);
+                                      var acFields = this._contentBox.all('input.acFieldsPanel');
                                       acFields.each(function(eachacField) {
                                                         var ac = new Y.AutoComplete({
                                                                                         inputNode: eachacField,
@@ -25,15 +24,14 @@ var ModalView = Y.Base.create('modalView',Y.ZeView, [], {
                                                         // _this._destroyOnExit.push(ac);
                                                     });
                                       var panel = new Y.Panel({
-                                                                  srcNode: container,
                                                                   width   : 400,
                                                                   centered: true,
                                                                   render  : true,
                                                                   modal  : true,
-                                                                  zIndex  : 5
+                                                                  zIndex  : 5,
+                                                                  bodyContent : this._contentBox
                                                               });
                                       panel.set('headerContent','Modal');
-
                                       this.regmodals.push(panel);
                                   }
                               });

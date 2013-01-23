@@ -56,14 +56,14 @@ var tmplpage = '<fieldset>\
       // initializing of views
         this._tables = [];
     },
-    _render: function(container) {
-      container.setHTML(this.template);
-      this.setSwapContainer(container.one('.results'),0);
+    _refresh: function() {
+      this._contentBox.setHTML(this.template);
+      this.setSwapContainer(this._contentBox.one('.results'),0);
 
-      Y.one('#ac-input').plug(Y.Plugin.AutoComplete, {
-        source: 'select * from search.suggest where query="{query}"',
-        yqlEnv: 'http://pieisgood.org/yql/tables.env'
-      });
+      this._contentBox.one('#ac-input').plug(Y.Plugin.AutoComplete, {
+                                                 source: 'select * from search.suggest where query="{query}"',
+                                                 yqlEnv: 'http://pieisgood.org/yql/tables.env'
+                                             });
     },
     showcal: function (ev) {
         YUI.Ze.calendar.showUnder(ev.target);
@@ -77,7 +77,6 @@ var tmplpage = '<fieldset>\
           qs[f.get('name')] = val;
         }
       });
-        console.log("asd");
       var _this = this;
       Y.use('model-list-zope','modelsyncZope', function () {
         var MyM = Y.Base.create('MyM', Y.ModelListZope, [Y.ModelSync.Zope], {
@@ -93,7 +92,7 @@ var tmplpage = '<fieldset>\
                               table.on('render',function (ev) {
                                            Y.one('.resultsfieldset').setStyle('display','');
                                        });
-                              _this.setSwapView(table,0);
+                              _this.setSwapView(table.render(),0);
                               _this._tables.push(table);
                           });
                 });

@@ -8,8 +8,8 @@ var NewView = Y.Base.create('newView',Y.ZeView, [], {
                                         }
                                     }
                                 },
-                                _render:  function (container) {
-                                    container.setHTML(this.template);
+                                _refresh:  function () {
+                                    this._contentBox.setHTML(this.template);
                                     var table = new Y.DataTable({
                                                                     columns: ['id', 'name','price','cost'],
                                                                     data: [
@@ -18,9 +18,11 @@ var NewView = Y.Base.create('newView',Y.ZeView, [], {
                                                                         { id: "wi-0650", name: "widget",   price: "$4.25", cost: "$3.75" }
                                                                     ]
                                                                 });
-                                    this.setSwapContainer(container.one('.innerContainer'),2);
-                                    this.setSwapView(table,2);
+                                    table.render(this._contentBox.one('.innerContainer'));
+                                    // this.setSwapContainer(this._contentBox.one('.innerContainer'),2);
+                                    // this.setSwapView(table,2);
                                     this._destroyOnExit.push(table);
+                                    return this;
                                 }
                             });
 

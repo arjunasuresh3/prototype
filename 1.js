@@ -24,29 +24,30 @@ YUI().use('zeView', 'contentSwapper', function(Y) {
             switch (ev.which) {
             case 'NewView':
                 Y.use("newView",function(){
-                          myView.setSwapView(new Y.NewView(),1);       
+                          myView.setSwapView(new Y.NewView().render(),1);       
                       });
                 break;
             case 'AnotherNewView':
                 Y.use("anotherNewView",function(){
-                          myView.setSwapView(new Y.AnotherNewView(),1);       
+                          myView.setSwapView(new Y.AnotherNewView().render(),1);       
                       });
                 break;
             }
         },
-        _render: function (container) {
-            container.setHTML(this.template);
-            this.setSwapContainer(container.one('.allPanels'),0);
-            this.setSwapContainer(container.one('.variableContent'),1);
-            this.setSwapContainer(container.one('.mainPanels'),2);
-            this.setSwapContainer(container.one('.modalPanels'),3);
+        _refresh: function () {
+            this._contentBox.setHTML(this.template);
+            this.setSwapContainer(this._contentBox.one('.allPanels'),0);
+            this.setSwapContainer(this._contentBox.one('.variableContent'),1);
+            this.setSwapContainer(this._contentBox.one('.mainPanels'),2);
+            this.setSwapContainer(this._contentBox.one('.modalPanels'),3);
+            return this;
         }
     });
 
     var myView = new MyView();
     myView.render(Y.one('#mainContent'));
-    Y.use("newView",function(){
-              myView.setSwapView(new Y.NewView(),1);       
+    Y.use("newView",function() {
+              myView.setSwapView(new Y.NewView().render(),1);       
           });
 
     Y.all(".tabsa").on("click", function(e) {
@@ -54,54 +55,53 @@ YUI().use('zeView', 'contentSwapper', function(Y) {
         e.preventDefault();
         if (e.currentTarget._node.id === 'tab1') {
             Y.use("clearView",function(){
-                      myView.setSwapView(new Y.ClearView(),1);       
-                      // myView.setSwapView(new Y.ClearView({template:''}),2);       
-                      // myView.setSwapView(new Y.ClearView({template:''}),3);       
+                      myView.setSwapView(new Y.ClearView().render(),1);       
                   });
         }
         else if (e.currentTarget._node.id === 'tab2') {
-            Y.use("anotherNewView",function(){
-                      myView.setSwapView(new Y.AnotherNewView(),1);       
+            Y.use("anotherNewView",function() {
+                      myView.setSwapView(new Y.AnotherNewView().render(),1);       
                   });
         }
         else if (e.currentTarget._node.id === 'tab3') {
-            Y.use("newView",function(){
-                      myView.setSwapView(new Y.NewView(),1);       
+            Y.use("newView",function() {
+                      myView.setSwapView(new Y.NewView().render(),1);       
                   });
         }
         else if (e.currentTarget._node.id === 'tab4') {
-            Y.use("modalView",function(){
-                      var oldModal = myView.getSwapView(3);
-                      if(oldModal === undefined) {
-                          var mod = new Y.ModalView();
-                          myView.setSwapView(mod,3);
-                      }
-                      else {
-                          oldModal.regmodals[0].show();                          
-                      }
+            Y.use("modalView",function() {
+                      var oldModal = new Y.ModalView().render();
+                      // if(oldModal === undefined) {
+                      //     // var mod = new Y.ModalView().render();
+                      //     myView.setSwapView(new Y.ModalView(),3);
+                      // }
+                      // else {
+                      //     oldModal.regmodals[0].show();                          
+                      // }
                   });
         }
         else if (e.currentTarget._node.id === 'tab5') {
             Y.use("mypanelView", function() {
-                      var oldPanel = myView.getSwapView(2);
-                      if(oldPanel === undefined) {
-                          var pan = new Y.MyPanelView();
-                          myView.setSwapView(pan,2);
-                      }
-                      else {
-                          oldPanel.regpanels[0].show();                          
-                      }
+                      var pan = new Y.MyPanelView().render();
+                      // var oldPanel = myView.getSwapView(2);
+                      // if(oldPanel === undefined) {
+                      //     // var pan = new Y.MyPanelView().render();
+                      //     myView.setSwapView(new Y.MyPanelView().render(),2);
+                      // }
+                      // else {
+                      //     oldPanel.regpanels[0].show();                          
+                      // }
                   });
         }
         else if (e.currentTarget._node.id === 'tab6') {
             Y.use("memsearchView" ,function() {
-                      myView.setSwapView(new Y.MemSearchView(),1);
+                      myView.setSwapView(new Y.MemSearchView().render(),1);
                   });
         }
-        else { 
-            Y.use("multipleTabs" ,function() {
-                      myView.setSwapView(new Y.MultipleTabs(),0);
-                  });
-        }
+        // else { 
+        //     Y.use("multipleTabs" ,function() {
+        //               myView.setSwapView(new Y.MultipleTabs().render(),0);
+        //           });
+        // }
     });
 });

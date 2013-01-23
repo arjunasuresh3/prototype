@@ -16,22 +16,13 @@ CS.prototype = {
     setSwapContainer: function (container, index) {
         index = index || 0;
         var prev = this._swapContainer[index],
-            view = this._swapView[index],
-            children;
+            view = this._swapView[index];
         this._swapContainer[index] = container;
         if (view) {
             if (container) {
-                if (prev) {
-                    children = prev.get('children');
-                    children.each(function (child) {
-                        container.appendChild(child);
-                    });
-                } else {
-                    view.render(container);
-                }
-                view._set('container', container);
+                container.setHTML(view.get('contentBox'));
             } else {
-                view.destroy();
+                prev.setHTML('');
             }
         }
         return this;
@@ -41,17 +32,14 @@ CS.prototype = {
     },
     setSwapView: function (view, index) {
         index = index || 0;
-        var prev = this._swapView[index],
-            c = this._swapContainer[index];
+        var container = this._swapContainer[index];
         if (view === null || (isFn(view.render) && isFn(view.destroy))) {
             this._swapView[index] = view;
-            if (prev) {
-                prev.removeTarget(this);
-                prev.destroy();
-            }
-            if (c && view) {
-                view.render(c);
+            if (view) {
+                container.setHTML(view.get('contentBox'));
                 view.addTarget(this);
+            } else {
+                container.setHTML('');
             }
         }
         return this;
