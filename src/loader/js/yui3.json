@@ -1,0 +1,113 @@
+{
+    "anotherNewView": {
+        "requires": [
+            "zeView",
+            "datatable",
+            "contentSwapper",
+            "autocomplete",
+            "autocomplete-highlighters"
+        ]
+    },
+    "clearView": {
+        "requires": [
+            "zeView",
+            "datatable",
+            "contentSwapper",
+            "autocomplete",
+            "autocomplete-highlighters"
+        ]
+    },
+    "contentSwapper": {
+        "requires": [
+            "zeView"
+        ]
+    },
+    "memsearchView": {
+        "requires": [
+            "zeView",
+            "datatable",
+            "contentSwapper",
+            "autocomplete",
+            "autocomplete-highlighters",
+            "io-upload-iframe"
+        ]
+    },
+    "modalView": {
+        "requires": [
+            "zeView",
+            "datatable",
+            "contentSwapper",
+            "autocomplete",
+            "autocomplete-highlighters",
+            "panel",
+            "resize-plugin",
+            "dd-plugin"
+        ]
+    },
+    "model-list-zope": {
+        "requires": [
+            "array-extras",
+            "array-invoke",
+            "arraylist",
+            "base-build",
+            "escape",
+            "json-parse",
+            "model"
+        ]
+    },
+    "modelsyncZope": {
+        "requires": [
+            "io",
+            "json"
+        ]
+    },
+    "multipleTabs": {
+        "requires": [
+            "zeView",
+            "datatable",
+            "contentSwapper",
+            "autocomplete",
+            "autocomplete-highlighters",
+            "panel",
+            "resize-plugin",
+            "dd-plugin",
+            "overlay"
+        ]
+    },
+    "mypanelView": {
+        "requires": [
+            "zeView",
+            "datatable",
+            "contentSwapper",
+            "autocomplete",
+            "autocomplete-highlighters",
+            "panel",
+            "resize-plugin",
+            "dd-plugin",
+            "overlay"
+        ]
+    },
+    "newView": {
+        "requires": [
+            "zeView",
+            "datatable",
+            "contentSwapper",
+            "autocomplete",
+            "autocomplete-highlighters"
+        ]
+    },
+    "zeView": {
+        "requires": [
+            "base"
+        ]
+    },
+    "zecalendar": {
+        "requires": [
+            "calendar",
+            "base-build",
+            "datatype-date",
+            "event-outside",
+            "event-focus"
+        ]
+    }
+}
