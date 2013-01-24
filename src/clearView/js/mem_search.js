@@ -76,10 +76,10 @@ var tmplpage = '<fieldset>\
       });
       var _this = this;
       Y.use('model-list-zope','modelsyncZope', function () {
-        var MyM = Y.Base.create('MyM', Y.ModelListZope, [Y.ModelSync.Zope], {
+        var MemberModelList = Y.Base.create('MemberModelList', Y.ModelListZope, [Y.ModelSync.Zope], {
                                     root: '/memresults'
                                 }),
-        ml = new MyM();
+        ml = new MemberModelList();
         ml.save(qs,function (error, resp) {
                     Y.use('datatable',function() {
                               var table = new Y.DataTable({
