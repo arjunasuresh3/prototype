@@ -46,9 +46,14 @@
                 "ModelSyncZope.js"
             ]
         },
-	"multipleTabs": {
+	"memberDetails": {
             "jsfiles": [
-                "multipleTabs.js"
+                "memberDetails.js"
+            ]
+        },
+	"memberEditDetails": {
+            "jsfiles": [
+                "memberEditDetails.js"
             ]
         }
     }

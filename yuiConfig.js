@@ -51,9 +51,13 @@ YUI_config = {
 					path: '/memsearchView/memsearchView.js',
 					requires: ["zeView"]
 				},
-				'multipleTabs': {
-					path: '/multipleTabs/multipleTabs.js',
-					requires: ["zeView", "datatable", "contentSwapper", "autocomplete", "autocomplete-highlighters", "panel", "resize-plugin" , "dd-plugin", "overlay"]
+				'memberDetails': {
+					path: '/memberDetails/memberDetails.js',
+					requires: ["zeView"]
+				},
+				'memberEditDetails': {
+					path: '/memberEditDetails/memberEditDetails.js',
+					requires: ["zeView"]
 				}
 			}
 		}

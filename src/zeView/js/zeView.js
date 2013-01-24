@@ -184,6 +184,7 @@ Y.ZeView = Y.extend(ZeView, Y.Base, {
     },
 
     destructor: function () {
+        console.log("zeview des");
         this._detachEvents();
         arrEach(this._destroyOnExit,function(h){
             if (h && h.destroy) {

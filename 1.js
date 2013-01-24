@@ -14,7 +14,7 @@ YUI().use('zeView', 'contentSwapper', function(Y) {
 
 
     var MyView = Y.Base.create('myView', Y.ZeView, [Y.ContentSwapper], {
-        template: '<p border="1">This is the fixed div container, next comes the variable part:</p><div class="variableContent"></div><div class="mainPanels"></div><div class="modalPanels"></div><div class="allPanels"></div>',
+        template: '<p border="1">This is the fixed div container, next comes the variable part:</p><div class="variableContent"></div><div style="width: 800px;overflow:hidden;"><div style="width:400px;float:left;" class="allFixedPanels">DIV1</div><div style="width:400px;float:left;" class="detailsPanel">DIV2</div></div>',
         initializer: function () {
             this._eventHandles.push(
                 this.on('*:swap', this.swap)
@@ -36,10 +36,8 @@ YUI().use('zeView', 'contentSwapper', function(Y) {
         },
         _refresh: function () {
             this._contentBox.setHTML(this.template);
-            this.setSwapContainer(this._contentBox.one('.allPanels'),0);
             this.setSwapContainer(this._contentBox.one('.variableContent'),1);
-            this.setSwapContainer(this._contentBox.one('.mainPanels'),2);
-            this.setSwapContainer(this._contentBox.one('.modalPanels'),3);
+            this.setSwapContainer(this._contentBox.one('.allFixedPanels'),0);
             return this;
         }
     });
@@ -81,6 +79,11 @@ YUI().use('zeView', 'contentSwapper', function(Y) {
         else if (e.currentTarget.get('id') === 'tab6') {
             Y.use("memsearchView" ,function() {
                       myView.setSwapView(new Y.MemSearchView().render(),1);
+                  });
+        }
+        else if (e.currentTarget.get('id') === 'tab7') {
+            Y.use("memberDetails" ,function() {
+                      var myPan = new Y.MemberDetails().render();
                   });
         }
     });

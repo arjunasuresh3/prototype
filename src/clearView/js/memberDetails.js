@@ -1,15 +1,25 @@
-var MyPanelView = Y.Base.create('mypanelView',Y.ZeView, [], {
-                                  initializer:  function () {
+var MemberDetails = Y.Base.create('memberDetails',Y.ZeView, [], {
+                                  initializer :  function () {
                                       this.regpanels = [];
                                       this.acs = [];
                                   },
-                                  template: '<div class="acFields">'
-                                      + '<br>Autocomplete Field 1: <input class="acFieldsPanel" id="ac-input9" type="text">'
-                                      + 'Autocomplete Field 2: <input class="acFieldsPanel" id="ac-input10" type="text">'
-                                      + '<br>Autocomplete Field 3: <input class="acFieldsPanel" id="ac-input11" type="text">'
-                                      + 'Autocomplete Field 4: <input class="acFieldsPanel" id="ac-input12" type="text">'
+                                  template : '<div class="acFields">'
+                                      + '<br>Item Id: ga-3475'
+                                      + 'Item Name: <input class="acFieldsPanel" id="ac-input10" type="text">'
+                                      + '<br>Item Price: $6.99'
+                                      + 'Item Cost: $5.99'
+                                      + '<button type="button">Click Me!!!</button>'
                                       + '</div>',
-                                  events: {
+                                  events : {
+                                      button: {
+                                          click: '_clickMeToo'
+                                      }
+                                  },
+                                  _clickMeToo : function(ev) {
+                                      console.log("asd");
+                                      Y.use("memberEditDetails", function() {
+                                                new Y.MemberEditDetails().render();
+                                            });
                                   },
                                   okButton : {
                                       value: 'ok',
@@ -30,6 +40,18 @@ var MyPanelView = Y.Base.create('mypanelView',Y.ZeView, [], {
                                   },
                                   _refresh: function () {
                                       this._contentBox.setHTML(this.template);
+                                      var regpanel = new Y.Panel({
+                                                                     // align : this._contentBox.one('.panel'),
+                                                                     width   : 400,
+                                                                     // centered: true,
+                                                                     render  : true,
+                                                                     zIndex : 5,
+                                                                     headerContent : 'Panel',
+                                                                     // bodyContent : this._contentBox,
+                                                                     buttons: [this.cancelButton]
+                                                              });
+                                      regpanel.align(Y.one('.allFixedPanels'),[Y.WidgetPositionAlign.TL, Y.WidgetPositionAlign.TL]);
+                                      
                                       var acFields = this._contentBox.all('input.acFieldsPanel'),
                                       _this = this;
                                       acFields.each(function(eachacField) {
@@ -46,16 +68,7 @@ var MyPanelView = Y.Base.create('mypanelView',Y.ZeView, [], {
                                       
 
                                       // regpanel.setStdModContent(Y.WidgetStdMod.BODY,container);
-                                      // regpanel.set('bodyContent', this._contentBox);
-                                      var regpanel = new Y.Panel({
-                                                                     width   : 400,
-                                                                     centered: true,
-                                                                     render  : true,
-                                                                     zIndex : 5,
-                                                                     headerContent : 'Panel',
-                                                                     bodyContent : this._contentBox,
-                                                                     buttons: [this.okButton, this.cancelButton]
-                                                              }).plug(Y.Plugin.Drag).plug(Y.Plugin.Resize);
+                                      regpanel.set('bodyContent', this._contentBox);
                                       this.regpanels.push(regpanel);
                                   },
                                   destroy: function () {
@@ -73,4 +86,4 @@ var MyPanelView = Y.Base.create('mypanelView',Y.ZeView, [], {
                                   }
                               });
 
-Y.MyPanelView = MyPanelView;
+Y.MemberDetails = MemberDetails;
