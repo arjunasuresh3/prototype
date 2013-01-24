@@ -113,6 +113,10 @@ YUI.add('contentSwapper-tests', function(Y) {
             A.isTrue(Y.one('.variableContent div').hasClass('ze-view-myView2'));
             A.areEqual(TMPL2, Y.one('.variableContent .ze-view-myView2').getHTML(), 'Finally it should be Swap View 2');
 
+            myView.setSwapView();
+
+            A.areEqual('', Y.one('.variableContent').getHTML());
+
         },
         'swapping container, single': function () {
 
@@ -121,13 +125,18 @@ YUI.add('contentSwapper-tests', function(Y) {
 
             myView.setSwapView(sv);
             A.areEqual(TMPL1, Y.one('#container1 .variableContent .ze-view-myView1').getHTML(),'It should be Swap View 1');
-            A.areSame(Y.one('#container1 .variableContent .ze-view-myView1'), sv.get('contentBox'), 'The contentBox of the view should point to it')
+            A.areSame(Y.one('#container1 .variableContent .ze-view-myView1'), sv.get('contentBox'), 'The contentBox of the view should point to it');
 
             myView.setSwapContainer(Y.one('#container2'));
 
             A.areEqual(TMPL1, Y.one('#container2 .ze-view-myView1').getHTML());
             A.areEqual('', Y.one('#container1 .variableContent').getHTML());
-            A.areSame(Y.one('#container2 .ze-view-myView1'), sv.get('contentBox'), 'The contentBox of the view should point to the new container')
+            A.areSame(Y.one('#container2 .ze-view-myView1'), sv.get('contentBox'), 'The contentBox of the view should point to the new container');
+
+            myView.setSwapContainer();
+
+            A.areEqual('', Y.one('.variableContent').getHTML());
+
 
         },
         'test clicking': function () {
@@ -140,6 +149,14 @@ YUI.add('contentSwapper-tests', function(Y) {
             Y.one('.variableContent button').simulate('click');
             A.areEqual(TMPL1, Y.one('.variableContent .ze-view-myView1').getHTML(), 'Now it should be Swap View 1 again');
 
+
+        },
+        'test getters': function () {
+            var sv1 = new SwapView1().render();
+            myView.setSwapView(sv1);
+
+            A.areSame(sv1, myView.getSwapView());
+            A.areSame(Y.one('.variableContent'), myView.getSwapContainer());
 
         }
     }));
@@ -201,6 +218,19 @@ YUI.add('contentSwapper-tests', function(Y) {
             Y.one('.variableContent1 button').simulate('click');
             A.areEqual(TMPL1, Y.one('.variableContent1 .ze-view-myView1').getHTML(), 'Now it should be Swap View 1 again');
 
+
+        },
+        'test getters': function () {
+            var sv1 = new SwapView1().render(),
+                sv2 = new SwapView2().render();
+            myView.setSwapView(sv1, 1);
+            myView.setSwapView(sv2, 2);
+
+            A.areSame(sv1, myView.getSwapView(1));
+            A.areSame(sv2, myView.getSwapView(2));
+
+            A.areSame(Y.one('.variableContent1'), myView.getSwapContainer(1));
+            A.areSame(Y.one('.variableContent2'), myView.getSwapContainer(2));
 
         }
     }));

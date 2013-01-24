@@ -2,22 +2,18 @@
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-		<title>Content Swapper Tests</title>
+		<title>ZeView Tests</title>
 		<script type="text/javascript" src="/build/yui/yui.js"></script>
-        <script src="/build/zeView/zeView.js"></script>
-        <!-- script src="/build/contentSwapper/contentSwapper.js"></script -->
-        <script src="js/contentSwapper-tests.js"></script>
+        <script src="js/zeView-test.js"></script>
 	</head>
 	<body  class="yui3-skin-sam">
-        <h1>Content Swapper Tests</h1>
+        <h1>ZeView Tests</h1>
         <div id="log"></div>
-        <div id="container1"></div>
-        <div id="container2"></div>
 
         <script type="text/javascript">
 			YUI({
 				filter: (window.location.search.match(/[?&]filter=([^&]+)/) || [])[1] || 'raw',
-				coverage:['contentSwapper'],
+				coverage:['zeView'],
                 groups: {
                     ze: {
                         base: ' ../../../build/',
@@ -25,19 +21,15 @@
                             zeView: {
                                 path: 'zeView/zeView-min.js',
                                 requires:['base']
-                            },
-                            contentSwapper: {
-                                path: 'contentSwapper/contentSwapper-min.js',
-                                requires:['zeView']
                             }
                         }
                     }
                 }
 
-			}).use('zeView','contentSwapper','contentSwapper-tests','test','test-console','node-event-simulate', 'base-build', function (Y) {
+			}).use('zeView','zeView-test','test','test-console','node-event-simulate', 'base-build', function (Y) {
 				(new Y.Test.Console()).render('#log');
 
-                Y.Test.Runner.setName('contentSwapper');
+                Y.Test.Runner.setName('zeView');
 				Y.Test.Runner.run();
 			});
 		</script>

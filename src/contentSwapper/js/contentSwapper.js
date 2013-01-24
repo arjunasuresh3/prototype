@@ -10,7 +10,7 @@ CS.prototype = {
         this._swapContainer = [];
         this._swapView = [];
         this._eventHandles.push(
-            this.after('destroy', this._beforeDestroy)
+            this.on('destroy', this._beforeDestroy)
         );
     },
     setSwapContainer: function (container, index) {
@@ -33,7 +33,7 @@ CS.prototype = {
     setSwapView: function (view, index) {
         index = index || 0;
         var container = this._swapContainer[index];
-        if (view === null || (isFn(view.render) && isFn(view.destroy))) {
+        if (!view || (isFn(view.render) && isFn(view.destroy))) {
             this._swapView[index] = view;
             if (view) {
                 container.setHTML(view.get('contentBox'));
@@ -49,7 +49,9 @@ CS.prototype = {
     },
     _beforeDestroy: function () {
         each(this._swapView, function (view) {
-            view.destroy();
+            if (view) {
+                view.destroy();
+            }
         });
     }
 
