@@ -159,13 +159,15 @@ Y.ZeView = Y.extend(ZeView, Y.Base, {
 
     // -- Lifecycle Methods ----------------------------------------------------
     initializer: function (config) {
-        config || (config = {});
+        config = config || {};
 
         // Set instance properties specified in the config.
-        config.contentBoxTemplate &&
-            (this.contentBoxTemplate = config.contentBoxTemplate);
-
-        config.template && (this.template = config.template);
+        if ("contentBoxTemplate" in config) {
+            this.contentBoxTemplate = config.contentBoxTemplate;
+        }
+        if ("template" in config) {
+            this.template = config.template;
+        }
 
         // Merge events from the config into events in `this.events`.
         this.events = config.events ? Y.merge(this.events, config.events) :
@@ -211,7 +213,9 @@ Y.ZeView = Y.extend(ZeView, Y.Base, {
     **/
     remove: function () {
         var contentBox = this.get('contentBox');
-        contentBox && contentBox.remove();
+        if (contentBox) {
+            contentBox.remove();
+        }
         return this;
     },
 
@@ -360,7 +364,7 @@ Y.ZeView = Y.extend(ZeView, Y.Base, {
     @param prevMode {ModelList | Model | null} The model currently set.
     @protected
     */
-    _modelChange: function (newModel, prevModel) {
+    _modelChange: function (newModel /* , prevModel */) {
         arrEach(this._modelEventHandles, function (h) {
             h.detach();
         });
@@ -368,11 +372,11 @@ Y.ZeView = Y.extend(ZeView, Y.Base, {
             if (newModel._isYUIModelList) {
                 this._modelEventHandles = [
                     newModel.after(['*:change','add', 'create', 'remove', 'reset'], this._refresh, this)
-                ]
+                ];
             } else if (newModel._isYUIModel) {
                 this._modelEventHandles = [
-                    newModel.after('change', this._refresh, this),
-                ]
+                    newModel.after('change', this._refresh, this)
+                ];
             }
             this._modelEventHandles.push(newModel.after('destroy', this.destroy, this));
             if (this._contentBox){
