@@ -14,7 +14,7 @@ YUI().use('zeView', 'contentSwapper', function(Y) {
 
 
     var MyView = Y.Base.create('myView', Y.ZeView, [Y.ContentSwapper], {
-        template: '<p border="1">This is the fixed div container, next comes the variable part:</p><div class="variableContent"></div><div style="width: 800px;overflow:hidden;"><div style="width:400px;float:left;" class="allFixedPanels">DIV1</div><div style="width:400px;float:left;" class="detailsPanel">DIV2</div></div>',
+        template: '<p border="1">This is the fixed div container, next comes the variable part:</p><div class="variableContent"></div><div style="width: 800px;overflow:hidden;"><div style="width:400px;float:left;" class="allFixedPanels">&nbsp;</div><div style="width:400px;float:left;" class="detailsPanel">&nbsp;</div></div>',
         initializer: function () {
             this._eventHandles.push(
                 this.on('*:swap', this.swap)
