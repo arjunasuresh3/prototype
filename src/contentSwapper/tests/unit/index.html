@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+		<title>Content Swapper Tests</title>
+		<script type="text/javascript" src="/build/yui/yui.js"></script>
+        <script src="/build/zeView/zeView.js"></script>
+        <!-- script src="/build/contentSwapper/contentSwapper.js"></script -->
+        <script src="js/contentSwapper-tests.js"></script>
+	</head>
+	<body  class="yui3-skin-sam">
+        <h1>Content Swapper Tests</h1>
+        <div id="log"></div>
+        <div id="container1"></div>
+        <div id="container2"></div>
+
+        <script type="text/javascript">
+			YUI({
+				filter: (window.location.search.match(/[?&]filter=([^&]+)/) || [])[1] || 'raw',
+				coverage:['contentSwapper'],
+                groups: {
+                    ze: {
+                        base: ' ../../../build/',
+                        modules: {
+                            zeView: {
+                                path: 'zeView/zeView-min.js',
+                                requires:['base']
+                            },
+                            contentSwapper: {
+                                path: 'contentSwapper/contentSwapper-min.js',
+                                requires:['zeView']
+                            }
+                        }
+                    }
+                }
+
+			}).use('zeView','contentSwapper','contentSwapper-tests','test','test-console','node-event-simulate', 'base-build', function (Y) {
+				(new Y.Test.Console()).render('#log');
+
+                Y.Test.Runner.setName('contentSwapper');
+				Y.Test.Runner.run();
+			});
+		</script>
+	</body>
+</html>
+
