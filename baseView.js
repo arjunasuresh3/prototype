@@ -35,7 +35,8 @@ YUI().use('zeView', 'contentSwapper', function(Y) {
             }
         },
         _refresh: function () {
-            this._contentBox.setHTML(this.template);
+            // this._contentBox.setHTML(this.template);            
+            MyView.superclass._refresh.call(this);
             this.setSwapContainer(this._contentBox.one('.variableContent'),1);
             this.setSwapContainer(this._contentBox.one('.allFixedPanels'),0);
             return this;

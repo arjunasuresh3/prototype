@@ -12,8 +12,6 @@ var MemberEditDetails = Y.Base.create('memberEditDetails',Y.ZeView, [], {
                                       value: 'ok',
                                       section: Y.WidgetStdMod.FOOTER,
                                       action: function (ev) {
-                                          // var numHounds = Y.Escape.html(Y.one('#hounds').get('value'));
-                                          // Y.one('body').append('<p>Hounds released: ' + numHounds + '</p>');
                                           ev.preventDefault();
                                           this.hide();
                                       }
@@ -26,7 +24,7 @@ var MemberEditDetails = Y.Base.create('memberEditDetails',Y.ZeView, [], {
                                           this.hide();                                      }
                                   },
                                   _refresh: function () {
-                                      this._contentBox.setHTML(this.template);
+                                      MemberEditDetails.superclass._refresh.call(this);
                                       var regpanel = new Y.Panel({
                                                                      width   : 400,
                                                                      render  : true,

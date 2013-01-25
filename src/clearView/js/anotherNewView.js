@@ -18,7 +18,7 @@ var AnotherNewView = Y.Base.create('anothernewView',Y.ZeView, [], {
                                            console.log("asd");
                                        },
                                        _refresh:  function () {
-                                           this._contentBox.setHTML(this.template);
+                                           AnotherNewView.superclass._refresh.call(this);
                                            var _this = this,
                                            acFields = this._contentBox.all('input.acFields');
                                            acFields.each(function(eachacField) {

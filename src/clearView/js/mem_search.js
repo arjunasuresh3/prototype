@@ -54,13 +54,12 @@ var tmplpage = '<fieldset>\
         this._tables = [];
     },
     _refresh: function() {
-      this._contentBox.setHTML(this.template);
-      this.setSwapContainer(this._contentBox.one('.results'),0);
-
-      this._contentBox.one('#ac-input').plug(Y.Plugin.AutoComplete, {
-                                                 source: 'select * from search.suggest where query="{query}"',
-                                                 yqlEnv: 'http://pieisgood.org/yql/tables.env'
-                                             });
+        this._contentBox.setHTML(this.template);
+        this.setSwapContainer(this._contentBox.one('.results'),0);
+        this._contentBox.one('#ac-input').plug(Y.Plugin.AutoComplete, {
+                                                   source: 'select * from search.suggest where query="{query}"',
+                                                   yqlEnv: 'http://pieisgood.org/yql/tables.env'
+                                               });
     },
     showcal: function (ev) {
         YUI.Ze.calendar.showUnder(ev.target);

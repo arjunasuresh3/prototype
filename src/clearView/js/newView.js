@@ -9,7 +9,7 @@ var NewView = Y.Base.create('newView',Y.ZeView, [], {
                                     }
                                 },
                                 _refresh:  function () {
-                                    this._contentBox.setHTML(this.template);
+                                    NewView.superclass._refresh.call(this);
                                     var table = new Y.DataTable({
                                                                     columns: ['id', 'name','price','cost'],
                                                                     data: [

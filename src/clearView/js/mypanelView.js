@@ -15,8 +15,6 @@ var MyPanelView = Y.Base.create('mypanelView',Y.ZeView, [], {
                                       value: 'ok',
                                       section: Y.WidgetStdMod.FOOTER,
                                       action: function (ev) {
-                                          // var numHounds = Y.Escape.html(Y.one('#hounds').get('value'));
-                                          // Y.one('body').append('<p>Hounds released: ' + numHounds + '</p>');
                                           ev.preventDefault();
                                           this.hide();
                                       }
@@ -29,7 +27,8 @@ var MyPanelView = Y.Base.create('mypanelView',Y.ZeView, [], {
                                           this.hide();                                      }
                                   },
                                   _refresh: function () {
-                                      this._contentBox.setHTML(this.template);
+                                      MyPanelView.superclass._refresh.call(this);
+
                                       var acFields = this._contentBox.all('input.acFieldsPanel'),
                                       _this = this;
                                       acFields.each(function(eachacField) {
@@ -41,12 +40,7 @@ var MyPanelView = Y.Base.create('mypanelView',Y.ZeView, [], {
                                                                                         yqlEnv: 'http://pieisgood.org/yql/tables.env'
                                                                                     });
                                                         _this.acs.push(ac);
-                                                        // regpanel.setStdModContent(Y.WidgetStdMod.BODY,ac.get('boundingBOX'),Y.WidgetStdMod.AFTER);
                                                     });
-                                      
-
-                                      // regpanel.setStdModContent(Y.WidgetStdMod.BODY,container);
-                                      // regpanel.set('bodyContent', this._contentBox);
                                       var regpanel = new Y.Panel({
                                                                      width   : 400,
                                                                      centered: true,

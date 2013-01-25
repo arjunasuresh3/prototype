@@ -25,8 +25,6 @@ var MemberDetails = Y.Base.create('memberDetails',Y.ZeView, [], {
                                       value: 'ok',
                                       section: Y.WidgetStdMod.FOOTER,
                                       action: function (ev) {
-                                          // var numHounds = Y.Escape.html(Y.one('#hounds').get('value'));
-                                          // Y.one('body').append('<p>Hounds released: ' + numHounds + '</p>');
                                           ev.preventDefault();
                                           this.hide();
                                       }
@@ -39,19 +37,16 @@ var MemberDetails = Y.Base.create('memberDetails',Y.ZeView, [], {
                                           this.hide();                                      }
                                   },
                                   _refresh: function () {
+                                      MemberDetails.superclass._refresh.call(this);
                                       this._contentBox.setHTML(this.template);
                                       var regpanel = new Y.Panel({
-                                                                     // align : this._contentBox.one('.panel'),
                                                                      width   : 400,
-                                                                     // centered: true,
                                                                      render  : true,
                                                                      zIndex : 5,
                                                                      headerContent : 'Panel',
-                                                                     // bodyContent : this._contentBox,
                                                                      buttons: [this.cancelButton]
                                                               });
                                       regpanel.align(Y.one('.allFixedPanels'),[Y.WidgetPositionAlign.TL, Y.WidgetPositionAlign.TL]);
-                                      
                                       var acFields = this._contentBox.all('input.acFieldsPanel'),
                                       _this = this;
                                       acFields.each(function(eachacField) {
@@ -63,11 +58,8 @@ var MemberDetails = Y.Base.create('memberDetails',Y.ZeView, [], {
                                                                                         yqlEnv: 'http://pieisgood.org/yql/tables.env'
                                                                                     });
                                                         _this.acs.push(ac);
-                                                        // regpanel.setStdModContent(Y.WidgetStdMod.BODY,ac.get('boundingBOX'),Y.WidgetStdMod.AFTER);
                                                     });
-                                      
 
-                                      // regpanel.setStdModContent(Y.WidgetStdMod.BODY,container);
                                       regpanel.set('bodyContent', this._contentBox);
                                       this.regpanels.push(regpanel);
                                   },
