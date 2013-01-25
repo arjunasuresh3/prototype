@@ -84,7 +84,9 @@ YUI().use('zeView', 'contentSwapper', function(Y) {
         }
         else if (e.currentTarget.get('id') === 'tab7') {
             Y.use("memberDetails" ,function() {
-                      var myPan = new Y.MemberDetails().render();
+                      var myPan = new Y.MemberDetails({
+                                                          palign : [Y.one('.allFixedPanels'),Y.WidgetPositionAlign.TL,Y.WidgetPositionAlign.TL]
+                                                      }).render();
                   });
         }
     });

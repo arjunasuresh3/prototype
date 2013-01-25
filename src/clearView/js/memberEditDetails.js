@@ -33,7 +33,10 @@ var MemberEditDetails = Y.Base.create('memberEditDetails',Y.ZeView, [], {
                                                                      bodyContent : this._contentBox,
                                                                      buttons: [this.cancelButton]
                                                               });
-                                      regpanel.align(Y.one('.detailsPanel'),[Y.WidgetPositionAlign.TL, Y.WidgetPositionAlign.TL]);
+                                      var palign = this.get('palign');
+                                      regpanel.align(palign[0],[palign[1], palign[2]]);
+
+                                      // regpanel.align(Y.one('.detailsPanel'),[Y.WidgetPositionAlign.TL, Y.WidgetPositionAlign.TL]);
                                       this.regpanels.push(regpanel);
                                   },
                                   destroy: function () {
@@ -49,6 +52,13 @@ var MemberEditDetails = Y.Base.create('memberEditDetails',Y.ZeView, [], {
                                                        regpanel.destroy();
                                                    });
                                   }
-                              });
+                              },
+                               {
+                                   ATTRS : {
+                                       palign: {
+                                           value: null
+                                       }
+                                   }
+                               });
 
 Y.MemberEditDetails = MemberEditDetails;

@@ -1,5 +1,5 @@
 var MemberDetails = Y.Base.create('memberDetails',Y.ZeView, [], {
-                                  initializer :  function () {
+                                  initializer :  function (cfg) {
                                       this.regpanels = [];
                                       this.acs = [];
                                   },
@@ -16,9 +16,10 @@ var MemberDetails = Y.Base.create('memberDetails',Y.ZeView, [], {
                                       }
                                   },
                                   _clickMeToo : function(ev) {
-                                      console.log("asd");
                                       Y.use("memberEditDetails", function() {
-                                                new Y.MemberEditDetails().render();
+                                                new Y.MemberEditDetails({
+                                                          palign : [Y.one('.detailsPanel'),Y.WidgetPositionAlign.TL,Y.WidgetPositionAlign.TL]
+                                                      }).render();
                                             });
                                   },
                                   okButton : {
@@ -45,10 +46,13 @@ var MemberDetails = Y.Base.create('memberDetails',Y.ZeView, [], {
                                                                      zIndex : 5,
                                                                      headerContent : 'Panel',
                                                                      buttons: [this.cancelButton]
-                                                              });
-                                      regpanel.align(Y.one('.allFixedPanels'),[Y.WidgetPositionAlign.TL, Y.WidgetPositionAlign.TL]);
-                                      var acFields = this._contentBox.all('input.acFieldsPanel'),
+                                                              }),
+                                      palign = this.get('palign'),
+                                      acFields = this._contentBox.all('input.acFieldsPanel'),
                                       _this = this;
+
+                                      regpanel.align(palign[0],[palign[1], palign[2]]);
+
                                       acFields.each(function(eachacField) {
                                                         var ac = new Y.AutoComplete({
                                                                                         inputNode: eachacField,
@@ -76,6 +80,13 @@ var MemberDetails = Y.Base.create('memberDetails',Y.ZeView, [], {
                                                        regpanel.destroy();
                                                    });
                                   }
-                              });
+                                  },
+                                  {
+                                      ATTRS : {
+                                          palign: {
+                                              value: null
+                                          }
+                                      }
+                                  });
 
 Y.MemberDetails = MemberDetails;
