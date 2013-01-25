@@ -82,10 +82,27 @@ var tmplpage = '<fieldset>\
         ml.save(qs,function (error, resp) {
                     Y.use('datatable',function() {
                               var table = new Y.DataTable({
-                                                              columns: ['MemberId', 'Name', 'DOB'],
+                                                              columns: [
+                                                                  {   key: 'MemberId',   label: 'Member Id' },
+                                                                  {   key: 'Name',  label: 'Member Name' },
+                                                                  {   key: 'DOB', label: 'Date Of Birth' },
+                                                                  {   key:        'select',
+                                                                      allowHTML:  true, // to avoid HTML escaping
+                                                                      label: 'Actions'
+                                                                      // default:      '<button class="mbrModify" type="button">Modify</button>',
+                                                                      // emptyCellValue: '<button class="mbrModify" type="button">Modify</button>'
+                                                                  }
+                                                              ],
                                                               data: Y.JSON.parse(resp.responseText)
                                                           });
-                              table.on('render',function (ev) {
+                              
+                              table.delegate("click", function(e) {
+                                                 // alert the modify row
+                                                 var rowId = e.target.getAttribute('cellVal');
+                                                 alert(rowId);
+                                             }, ".yui3-datatable-data .yui3-datatable-col-select button", table);
+
+                              table.on('render', function (ev) {
                                            Y.one('.resultsfieldset').setStyle('display','');
                                        });
                               _this.setSwapView(table.render(),0);

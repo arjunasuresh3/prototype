@@ -32,10 +32,10 @@ app.use({
                 console.log(res);
                 // console.log(q);
                 var myArray = [
-                    {MemberId: 1, Name:'pecan pie', DOB: '01/02/1985'},
-                    {MemberId: 2, Name:'apple pie', DOB: '01/02/1986'},
-                    {MemberId: 3, Name:'cheasecake', DOB: '01/02/1987'}
-                ]; 
+                    {MemberId: 1, Name:'pecan pie', DOB: '01/02/1985', select: '<button class="mbrModify" cellVal="1" type="button">Modify</button>'},
+                    {MemberId: 2, Name:'apple pie', DOB: '01/02/1986', select: '<button class="mbrModify" cellVal="2" type="button">Modify</button>'},
+                    {MemberId: 3, Name:'cheasecake', DOB: '01/02/1987', select: '<button class="mbrModify" cellVal="3" type="button">Modify</button>'}
+                ];
                 res.send(myArray);
             },
             ModelRoot_read: function(res, q) {
