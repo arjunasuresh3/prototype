@@ -1,0 +1,11 @@
+{
+    "name"       : "modelsynczope",
+    "displayName": "Gallery: modelsynczope",
+    "description": "*Summary Goes Here*",
+    "author"     : [ "Satyam" ],
+    "use"        : [ "modelsynczope" ],
+
+    "tags": [ "gallery" ],
+
+    "examples": []
+}

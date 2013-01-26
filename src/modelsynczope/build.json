@@ -1,0 +1,10 @@
+{
+    "name": "modelsynczope",
+    "builds": {
+        "modelsynczope": {
+            "jsfiles": [
+                "js/modelsynczope.js"
+            ]
+        }
+    }
+}

@@ -1,0 +1,5 @@
+{
+    "modelsynczope": {
+        "requires": ["io","json"]
+    }
+}
