@@ -1,0 +1,21 @@
+<div class="intro">
+    <p>
+    *Summary Goes Here*
+    </p>
+</div>
+{{>getting-started}}
+<h2>Description</h2>
+
+<p>*Module Description Goes Here*</p>
+
+```
+Y.TestModel = Y.Base.create('customModel', Y.Model, [Y.ModelSync.Zope], {
+    root: 'data/custom'
+});
+
+Y.TestModelList = Y.Base.create('testModelList', Y.ModelList, [Y.ModelSync.Zope], {
+    root: 'data/custom',
+    model: Y.TestModel
+});
+```
+
