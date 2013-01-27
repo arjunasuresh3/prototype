@@ -4,7 +4,7 @@ Extension to provide remote communication from Model and ModelList to Zope serve
 This module is a modified version of ModelSync.REST.
 
 @module model
-@submodule modelsynczope
+@submodule model-sync-zope
 */
 /**
 Extension to provide remote communication from Model and ModelList to Zope servers

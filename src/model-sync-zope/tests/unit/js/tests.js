@@ -217,5 +217,5 @@ YUI.add('module-tests', function(Y) {
 
 
 },'', {
-    requires: [ 'test', 'model', 'model-list', 'base-build' ,'modelsynczope']
+    requires: [ 'test', 'model', 'model-list', 'base-build' ,'model-sync-zope']
 });

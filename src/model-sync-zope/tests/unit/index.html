@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>modelsynczope</title>
+    <title>model-sync-zope</title>
     <script src="/build/yui/yui.js"></script>
     <script src="js/tests.js"></script>
     <meta charset="utf-8" />
@@ -11,24 +11,24 @@
 
 <script>
 YUI({
-    coverage: ['modelsynczope'],
+    coverage: ['model-sync-zope'],
     filter: (window.location.search.match(/[?&]filter=([^&]+)/) || [])[1] || 'raw',
     groups: {
         ze: {
             base: ' ../../../build/',
             modules: {
-                modelsynczope: {
-                    path: 'modelsynczope/modelsynczope-min.js',
+                'model-sync-zope': {
+                    path: 'model-sync-zope/model-sync-zope-min.js',
                     requires:["io","json"]
                 }
             }
         }
     }
-}).use('test-console', 'test', 'module-tests', 'model', 'model-list', 'base-build','modelsynczope', function(Y) {
+}).use('test-console', 'test', 'module-tests', 'model', 'model-list', 'base-build','model-sync-zope', function(Y) {
 
     (new Y.Test.Console()).render('#logger');
 
-    Y.Test.Runner.setName('modelsynczope');
+    Y.Test.Runner.setName('model-sync-zope');
     Y.Test.Runner.run();
 });
 </script>

@@ -1,0 +1,11 @@
+{
+    "name"       : "model-sync-zope",
+    "displayName": "model-sync-zope",
+    "description": "*Summary Goes Here*",
+    "author"     : [ "Satyam" ],
+    "use"        : [ "model-sync-zope" ],
+
+    "tags": [ "Model", "ModelList", "Sync" ],
+
+    "examples": []
+}
