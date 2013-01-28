@@ -1,0 +1,5 @@
+{
+    "model-sync-zope": {
+        "requires": ["io","json"]
+    }
+}

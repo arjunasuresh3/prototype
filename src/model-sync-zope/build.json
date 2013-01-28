@@ -1,0 +1,10 @@
+{
+    "name": "model-sync-zope",
+    "builds": {
+        "model-sync-zope": {
+            "jsfiles": [
+                "js/model-sync-zope.js"
+            ]
+        }
+    }
+}
