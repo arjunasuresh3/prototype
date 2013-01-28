@@ -89,8 +89,6 @@ var tmplpage = '<fieldset>\
                                                                   {   key:        'select',
                                                                       allowHTML:  true, // to avoid HTML escaping
                                                                       label: 'Actions'
-                                                                      // default:      '<button class="mbrModify" type="button">Modify</button>',
-                                                                      // emptyCellValue: '<button class="mbrModify" type="button">Modify</button>'
                                                                   }
                                                               ],
                                                               data: Y.JSON.parse(resp.responseText)
@@ -100,6 +98,12 @@ var tmplpage = '<fieldset>\
                                                  // alert the modify row
                                                  var rowId = e.target.getAttribute('cellVal');
                                                  alert(rowId);
+                                                 Y.use('memberDetails', function() {
+                                                           var myPan = new Y.MemberDetails({
+                                                               palign : [Y.one('.allFixedPanels'),Y.WidgetPositionAlign.TL,Y.WidgetPositionAlign.TL],
+                                                               memId : rowId
+                                                           }).render();
+                                                       });
                                              }, ".yui3-datatable-data .yui3-datatable-col-select button", table);
 
                               table.on('render', function (ev) {

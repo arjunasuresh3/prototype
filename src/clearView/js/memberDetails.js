@@ -4,11 +4,10 @@ var MemberDetails = Y.Base.create('memberDetails',Y.ZeView, [], {
                                       this.acs = [];
                                   },
                                   template : '<div class="acFields">'
-                                      + '<br>Item Id: ga-3475'
-                                      + 'Item Name: <input class="acFieldsPanel" id="ac-input10" type="text">'
-                                      + '<br>Item Price: $6.99'
-                                      + 'Item Cost: $5.99'
-                                      + '<button type="button">Click Me!!!</button>'
+                                      + '<br>Member Id: {memId}'
+                                      + '<br>Member Name: {memName}'
+                                      + '<br>DOB: {dob}'
+                                      + '<br><button type="button">Click Me!!!</button>'
                                       + '</div>',
                                   events : {
                                       button: {
@@ -38,8 +37,9 @@ var MemberDetails = Y.Base.create('memberDetails',Y.ZeView, [], {
                                           this.hide();                                      }
                                   },
                                   _refresh: function () {
-                                      MemberDetails.superclass._refresh.call(this);
-                                      this._contentBox.setHTML(this.template);
+                                      // MemberDetails.superclass._refresh.call(this);
+                                      this._contentBox.setHTML(Y.Lang.sub(this.template, this.getAttrs(['dob','memId','memName'])));
+                                      // this._contentBox.setHTML(this.template);
                                       var regpanel = new Y.Panel({
                                                                      width   : 400,
                                                                      render  : true,
@@ -85,6 +85,15 @@ var MemberDetails = Y.Base.create('memberDetails',Y.ZeView, [], {
                                       ATTRS : {
                                           palign: {
                                               value: null
+                                          },
+                                          memName : {
+                                              value: 'Satyam'
+                                          },
+                                          memId : {
+                                              value: '12345'
+                                          },
+                                          dob : {
+                                              value: '01/02/1985'
                                           }
                                       }
                                   });
