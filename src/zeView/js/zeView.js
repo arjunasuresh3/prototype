@@ -255,8 +255,11 @@ Y.ZeView = Y.extend(ZeView, Y.Base, {
     */
 
     _refresh: function () {
-        var m = this.get('model');
-        this._contentBox.setHTML(m?Y.Lang.sub(this.template, m.toJSON()):this.template);
+        var cbx = this._contentBox,
+            m = this.get('model');
+        if (cbx) {
+            cbx.setHTML(m?Y.Lang.sub(this.template, m.toJSON()):this.template);
+        }
         return this;
     },
 
@@ -379,9 +382,7 @@ Y.ZeView = Y.extend(ZeView, Y.Base, {
                 ];
             }
             this._modelEventHandles.push(newModel.after('destroy', this.destroy, this));
-            if (this._contentBox){
-                this._refresh();
-            }
+            this._refresh();
         }
     }
 
