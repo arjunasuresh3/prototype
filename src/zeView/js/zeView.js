@@ -246,6 +246,9 @@ Y.ZeView = Y.extend(ZeView, Y.Base, {
     The default implementation substitutes the values from the model into
     the `template` of this object.
 
+    If there are formatting functions set up in the `formatters` hash it will apply
+    those formatters to the fields before doing the substitution.
+
     Classes inheriting from ZeView may override this method to insert into the
     contentBox the elements they need.
 
@@ -256,12 +259,45 @@ Y.ZeView = Y.extend(ZeView, Y.Base, {
 
     _refresh: function () {
         var cbx = this._contentBox,
-            m = this.get('model');
+            m = this.get('model'),
+            f = this.formatters || {},
+            values, field;
         if (cbx) {
-            cbx.setHTML(m?Y.Lang.sub(this.template, m.toJSON()):this.template);
+            if (m) {
+                values = m.toJSON();
+                for (field in f) {
+                    if (values.hasOwnProperty(field)) {
+                        values[field] = f[field](values[field]);
+                    }
+                }
+                cbx.setHTML(Y.Lang.sub(this.template, values));
+            } else {
+                cbx.setHTML(this.template);
+            }
         }
         return this;
     },
+
+    /**
+    Contains a series of formatting functions each keyed by the name of the field
+    it is to format.
+
+    @example
+
+        formatters: {
+            "date-of-birth": function (value) {
+                return Y.Date.format(value, {format: "%x"});
+            },
+            active: function (value) {
+                return (value ? "yes" : "no");
+            }
+        }
+
+    @property formatters
+    @type Object
+    @default undefined
+    */
+
 
     /**
     Attaches delegated event handlers to this view's contentBox element. This

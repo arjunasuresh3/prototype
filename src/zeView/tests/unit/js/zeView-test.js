@@ -1,11 +1,11 @@
 YUI.add('zeView-test', function (Y) {
 
-var ArrayAssert  = Y.ArrayAssert,
-    A       = Y.Assert,
+var A       = Y.Assert,
     ObjectAssert = Y.ObjectAssert,
     CBX = 'contentBox',
 
-    suite;
+    suite,
+    view, cbx;
 
 
 // -- View Suite ---------------------------------------------------------------
@@ -14,10 +14,14 @@ suite = new Y.Test.Suite('View');
 // -- View: Lifecycle ----------------------------------------------------------
 suite.add(new Y.Test.Case({
     name: 'Lifecycle',
-
+    tearDown: function () {
+        if (view) {
+            view.destroy();
+        }
+    },
     'contentBox should be a <div> node by default': function () {
-        var view = new Y.ZeView(),
-            cbx = view.get(CBX);
+        view = new Y.ZeView();
+        cbx = view.get(CBX);
 
         A.isInstanceOf(Y.Node, cbx);
         A.areSame('div', cbx.get('tagName').toLowerCase());
@@ -35,27 +39,27 @@ suite.add(new Y.Test.Case({
                     attachEvents += 1;
                     return Y.ZeView.prototype._attachEvents.apply(this, arguments);
                 }
-            }),
+            });
 
-            a = new MyView();
+        view = new MyView();
         A.areSame(0, attachEvents, 'attachEvents() should not be called before the contentBox is retrieved');
 
-        a.get(CBX);
+        view.get(CBX);
         A.areSame(1, attachEvents, 'attachEvents() should be called the first time the contentBox is retrieved');
 
-        a.get(CBX);
+        view.get(CBX);
         A.areSame(1, attachEvents, 'attachEvents() should not be called more than once');
     },
 
     'events property should be an empty object by default': function () {
-        var view = new Y.ZeView();
+        view = new Y.ZeView();
 
         A.isObject(view.events);
         A.isTrue(Y.Object.isEmpty(view.events));
     },
 
     'events with missing handler functions should not cause an error during destruction': function () {
-        var view = new Y.ZeView({
+        view = new Y.ZeView({
             events: {
                 '.foo': {click: 'missingHandlerFn'}
             }
@@ -70,7 +74,7 @@ suite.add(new Y.Test.Case({
     },
 
     'initializer should allow setting a contentBoxTemplate at init': function () {
-        var view = new Y.ZeView({contentBoxTemplate: '<div class="my-contentBox"/>'});
+        view = new Y.ZeView({contentBoxTemplate: '<div class="my-contentBox"/>'});
 
         A.areSame('<div class="my-contentBox"/>', view.contentBoxTemplate);
         A.isUndefined(view.get('contentBoxTemplate'), 'contentBoxTemplate config should not become an ad-hoc attr');
@@ -81,9 +85,9 @@ suite.add(new Y.Test.Case({
                 '.foo': {
                     click: '_onFooClick'
                 }
-            },
+            };
 
-            view = new Y.ZeView({events: events});
+        view = new Y.ZeView({events: events});
 
         ObjectAssert.ownsKey('.foo', view.events);
         A.areSame('_onFooClick', view.events['.foo'].click);
@@ -91,8 +95,8 @@ suite.add(new Y.Test.Case({
     },
 
     'initializer should allow setting a template at init': function () {
-        var template = {},
-            view     = new Y.ZeView({template: template});
+        var template = {};
+        view     = new Y.ZeView({template: template});
 
         A.areSame(template, view.template);
         A.isUndefined(view.get('template'), 'template config should not become an ad-hoc attr');
@@ -105,9 +109,14 @@ suite.add(new Y.Test.Case({
 // -- View: Methods ------------------------------------------------------------
 suite.add(new Y.Test.Case({
     name: 'Methods',
+    tearDown: function () {
+        if (view) {
+            view.destroy();
+        }
+    },
 
     'remove() should remove the contentBox node from the DOM': function () {
-        var view = new Y.ZeView();
+        view = new Y.ZeView();
 
         Y.one('body').append(view.get(CBX));
         A.isTrue(view.get(CBX).inDoc());
@@ -117,12 +126,48 @@ suite.add(new Y.Test.Case({
     },
 
     'render() should be a chainable noop': function () {
-        var view = new Y.ZeView();
+        view = new Y.ZeView();
         A.areSame(view, view.render());
+    },
+    'view without model should render the raw template': function () {
+        view = new Y.ZeView({template: 'hello'}).render('#test');
+        A.areEqual('hello', Y.one('#test .ze-view-zeView').getHTML());
+    },
+    'view with model should render formatted': function () {
+        view = new Y.ZeView({
+            template: 'a is {a}, b is {b} and c should remain {c}',
+            model: new Y.Model({
+                a:1,
+                b:2
+            })
+        }).render('#test');
+        A.areEqual('a is 1, b is 2 and c should remain {c}', Y.one('#test .ze-view-zeView').getHTML());
+
+    },
+    'view with formatters': function () {
+        view = new Y.ZeView({
+            template: 'date: {date}, bool: {bool}',
+            model: new Y.Model({
+                date: new Date(2012, 11, 8),
+                bool:2
+            })
+        });
+        view.formatters = {
+            date: function (value) {
+                return Y.Date.format(value);
+            },
+            bool: function (value) {
+                return (value ? 'yes' : 'no');
+            }
+
+        };
+        view.render('#test');
+        A.areEqual('date: 2012-12-08, bool: yes', Y.one('#test .ze-view-zeView').getHTML());
+
     }
 }));
     Y.Test.Runner.add(suite);
 
 }, '@VERSION@', {
-    requires: ['model', 'model-list', 'zeView', 'test']
+    requires: ['model', 'model-list', 'zeView', 'test', 'datatype-date-format']
 });
