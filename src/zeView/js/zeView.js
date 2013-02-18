@@ -186,7 +186,6 @@ Y.ZeView = Y.extend(ZeView, Y.Base, {
     },
 
     destructor: function () {
-        console.log("zeview des");
         this._detachEvents();
         arrEach(this._destroyOnExit,function(h){
             if (h && h.destroy) {
@@ -196,7 +195,7 @@ Y.ZeView = Y.extend(ZeView, Y.Base, {
         this._modelChange();
         var contentBox = this._contentBox;
         if (contentBox) {
-            contentBox.setHTML('');
+            contentBox.remove(true);
         }
         delete this._contentBox;
     },
@@ -223,18 +222,44 @@ Y.ZeView = Y.extend(ZeView, Y.Base, {
     Renders this view.
 
     It creates the contentBox and fills it with the rendered content.
-    If a `container` is passed, the contentBox will be set into it.
+    If a `container` is provided, the contentBox will be set into it,
+    according to the `where` argument.  If no `where` argument is given,
+    the content will replace any existing content in `container`.
 
     @method render
     @param container {Node | String} Node reference or CSS selector for an
             element that is to receive the rendered view.
+    @param where {Int | Node | HTMLElement | String} The position to insert at.
+    Possible "where" arguments
+    <dl>
+        <dt>Y.Node</dt>
+        <dd>The Node to insert before</dd>
+        <dt>HTMLElement</dt>
+        <dd>The element to insert before</dd>
+        <dt>Int</dt>
+        <dd>The index of the child element to insert before</dd>
+        <dt>"replace"</dt>
+        <dd>Replaces the existing content (the default)</dd>
+        <dt>"insert"</dt>
+        <dd>Inserts before the existing contents</dd>
+        <dt>"append"</dt>
+        <dd>Inserts after the existing contents</dd>
+    </dl>
     @chainable
     **/
-    render: function (container) {
+    render: function (container, where) {
         var contentBox = this._contentBoxGetter();
         this._refresh();
         if (container) {
-            Y.one(container).setHTML(contentBox);
+            switch(typeof where) {
+                case 'undefined':
+                    where = 'replace';
+                    break;
+                case 'string':
+                    where = {insert:0,replace:'replace'}[where];
+                    break;
+            }
+            Y.one(container).insert(contentBox, where);
         }
         return this;
     },

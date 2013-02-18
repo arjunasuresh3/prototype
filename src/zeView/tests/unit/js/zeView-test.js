@@ -164,6 +164,46 @@ suite.add(new Y.Test.Case({
         view.render('#test');
         A.areEqual('date: 2012-12-08, bool: yes', Y.one('#test .ze-view-zeView').getHTML());
 
+    },
+    'replacing content': function () {
+        Y.one('#test').setHTML('existing');
+        view = new Y.ZeView({
+            template: 'content'
+        }).render('#test');
+        A.areEqual('<div class="ze-view-zeView">content</div>', Y.one('#test').getHTML());
+
+    },
+    'explicitly replacing content': function () {
+        Y.one('#test').setHTML('existing');
+        view = new Y.ZeView({
+            template: 'content'
+        }).render('#test', 'replace');
+        A.areEqual('<div class="ze-view-zeView">content</div>', Y.one('#test').getHTML());
+
+    },
+    'appending to content': function () {
+        Y.one('#test').setHTML('existing');
+        view = new Y.ZeView({
+            template: 'content'
+        }).render('#test', 'append');
+        A.areEqual('existing<div class="ze-view-zeView">content</div>', Y.one('#test').getHTML());
+
+    },
+    'inserting before content': function () {
+        Y.one('#test').setHTML('existing');
+        view = new Y.ZeView({
+            template: 'content'
+        }).render('#test', 'insert');
+        A.areEqual('<div class="ze-view-zeView">content</div>existing', Y.one('#test').getHTML());
+
+    },
+    'inserting at 0': function () {
+        Y.one('#test').setHTML('existing');
+        view = new Y.ZeView({
+            template: 'content'
+        }).render('#test', 0);
+        A.areEqual('<div class="ze-view-zeView">content</div>existing', Y.one('#test').getHTML());
+
     }
 }));
     Y.Test.Runner.add(suite);
