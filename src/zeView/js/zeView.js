@@ -286,15 +286,13 @@ Y.ZeView = Y.extend(ZeView, Y.Base, {
         var cbx = this._contentBox,
             m = this.get('model'),
             f = this.formatters || {},
-            values, field;
+            values;
         if (cbx) {
             if (m) {
                 values = m.toJSON();
-                for (field in f) {
-                    if (values.hasOwnProperty(field)) {
-                        values[field] = f[field](values[field]);
-                    }
-                }
+                objEach(f, function (fn, field) {
+                    values[field] = fn.call(this, values[field], m);
+                }, this);
                 cbx.setHTML(Y.Lang.sub(this.template, values));
             } else {
                 cbx.setHTML(this.template);
@@ -307,6 +305,11 @@ Y.ZeView = Y.extend(ZeView, Y.Base, {
     Contains a series of formatting functions each keyed by the name of the field
     it is to format.
 
+    The formatting function receives the value to be formatted plus a reference
+    to the model.   It is executed in the context of the view.
+    A formatter can produce values for fields that do not actually exist in the model,
+    calculated by any means, such as the `total` field below:
+
     @example
 
         formatters: {
@@ -315,6 +318,9 @@ Y.ZeView = Y.extend(ZeView, Y.Base, {
             },
             active: function (value) {
                 return (value ? "yes" : "no");
+            },
+            total: function (value, model) {
+                return model.get("qty") * model.get("unitPrice");
             }
         }
 

@@ -146,7 +146,7 @@ suite.add(new Y.Test.Case({
     },
     'view with formatters': function () {
         view = new Y.ZeView({
-            template: 'date: {date}, bool: {bool}',
+            template: 'date: {date}, bool: {bool}, total: {total}',
             model: new Y.Model({
                 date: new Date(2012, 11, 8),
                 bool:2
@@ -158,11 +158,16 @@ suite.add(new Y.Test.Case({
             },
             bool: function (value) {
                 return (value ? 'yes' : 'no');
+            },
+            total: function (value, m) {
+                A.isUndefined(value);
+                A.areSame(this, view);
+                return m.get('bool') * 2;
             }
 
         };
         view.render('#test');
-        A.areEqual('date: 2012-12-08, bool: yes', Y.one('#test .ze-view-zeView').getHTML());
+        A.areEqual('date: 2012-12-08, bool: yes, total: 4', Y.one('#test .ze-view-zeView').getHTML());
 
     },
     'replacing content': function () {
