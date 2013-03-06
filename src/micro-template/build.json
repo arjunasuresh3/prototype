@@ -1,0 +1,10 @@
+{
+    "name": "micro-template",
+    "builds": {
+        "micro-template": {
+            "jsfiles": [
+                "js/micro-template.js"
+            ]
+        }
+    }
+}
