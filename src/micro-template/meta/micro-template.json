@@ -1,0 +1,7 @@
+{
+    "micro-template": {
+        "requires": [
+            "zeView", "template"
+        ]
+    }
+}

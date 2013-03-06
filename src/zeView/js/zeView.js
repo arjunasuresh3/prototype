@@ -186,7 +186,6 @@ Y.ZeView = Y.extend(ZeView, Y.Base, {
     },
 
     destructor: function () {
-        console.log("zeview des");
         this._detachEvents();
         arrEach(this._destroyOnExit,function(h){
             if (h && h.destroy) {
@@ -196,7 +195,7 @@ Y.ZeView = Y.extend(ZeView, Y.Base, {
         this._modelChange();
         var contentBox = this._contentBox;
         if (contentBox) {
-            contentBox.setHTML('');
+            contentBox.remove(true);
         }
         delete this._contentBox;
     },
@@ -223,18 +222,44 @@ Y.ZeView = Y.extend(ZeView, Y.Base, {
     Renders this view.
 
     It creates the contentBox and fills it with the rendered content.
-    If a `container` is passed, the contentBox will be set into it.
+    If a `container` is provided, the contentBox will be set into it,
+    according to the `where` argument.  If no `where` argument is given,
+    the content will replace any existing content in `container`.
 
     @method render
     @param container {Node | String} Node reference or CSS selector for an
             element that is to receive the rendered view.
+    @param where {Int | Node | HTMLElement | String} The position to insert at.
+    Possible "where" arguments
+    <dl>
+        <dt>Y.Node</dt>
+        <dd>The Node to insert before</dd>
+        <dt>HTMLElement</dt>
+        <dd>The element to insert before</dd>
+        <dt>Int</dt>
+        <dd>The index of the child element to insert before</dd>
+        <dt>"replace"</dt>
+        <dd>Replaces the existing content (the default)</dd>
+        <dt>"insert"</dt>
+        <dd>Inserts before the existing contents</dd>
+        <dt>"append"</dt>
+        <dd>Inserts after the existing contents</dd>
+    </dl>
     @chainable
     **/
-    render: function (container) {
+    render: function (container, where) {
         var contentBox = this._contentBoxGetter();
         this._refresh();
         if (container) {
-            Y.one(container).setHTML(contentBox);
+            switch(typeof where) {
+                case 'undefined':
+                    where = 'replace';
+                    break;
+                case 'string':
+                    where = {insert:0,replace:'replace'}[where];
+                    break;
+            }
+            Y.one(container).insert(contentBox, where);
         }
         return this;
     },
@@ -246,6 +271,9 @@ Y.ZeView = Y.extend(ZeView, Y.Base, {
     The default implementation substitutes the values from the model into
     the `template` of this object.
 
+    If there are formatting functions set up in the `formatters` hash it will apply
+    those formatters to the fields before doing the substitution.
+
     Classes inheriting from ZeView may override this method to insert into the
     contentBox the elements they need.
 
@@ -255,10 +283,52 @@ Y.ZeView = Y.extend(ZeView, Y.Base, {
     */
 
     _refresh: function () {
-        var m = this.get('model');
-        this._contentBox.setHTML(m?Y.Lang.sub(this.template, m.toJSON()):this.template);
+        var cbx = this._contentBox,
+            m = this.get('model'),
+            f = this.formatters || {},
+            values;
+        if (cbx) {
+            if (m) {
+                values = m.toJSON();
+                objEach(f, function (fn, field) {
+                    values[field] = fn.call(this, values[field], m);
+                }, this);
+                cbx.setHTML(Y.Lang.sub(this.template, values));
+            } else {
+                cbx.setHTML(this.template);
+            }
+        }
         return this;
     },
+
+    /**
+    Contains a series of formatting functions each keyed by the name of the field
+    it is to format.
+
+    The formatting function receives the value to be formatted plus a reference
+    to the model.   It is executed in the context of the view.
+    A formatter can produce values for fields that do not actually exist in the model,
+    calculated by any means, such as the `total` field below:
+
+    @example
+
+        formatters: {
+            "date-of-birth": function (value) {
+                return Y.Date.format(value, {format: "%x"});
+            },
+            active: function (value) {
+                return (value ? "yes" : "no");
+            },
+            total: function (value, model) {
+                return model.get("qty") * model.get("unitPrice");
+            }
+        }
+
+    @property formatters
+    @type Object
+    @default undefined
+    */
+
 
     /**
     Attaches delegated event handlers to this view's contentBox element. This
@@ -379,9 +449,7 @@ Y.ZeView = Y.extend(ZeView, Y.Base, {
                 ];
             }
             this._modelEventHandles.push(newModel.after('destroy', this.destroy, this));
-            if (this._contentBox){
-                this._refresh();
-            }
+            this._refresh();
         }
     }
 
